@@ -4,7 +4,7 @@ import TeamForm from './teamForm'
 import Member from './member'
 import './App.css';
 
-cont initialMembersList = [
+const initialMembersList = [
   {
     id: uuid(),
     name: 'Ashton',
@@ -30,7 +30,7 @@ const fakeAxiosPost = (url, { name, email, role }) => {
 
 
 
-export default function App() {
+ function App() {
   const [members, setMembers] = useState([]) // starts as empty array
 
   const [formValues, setFormValues] = useState(initialFormValues)
@@ -46,7 +46,7 @@ export default function App() {
       role: formValues.role,
     }
 
-    if (!member.username || !member.email) return
+    
 
     fakeAxiosPost('fake.com', member)
       .then(res => {
@@ -67,14 +67,19 @@ export default function App() {
 
 
 
+return (
+    <div className="container">
+      <header><h1>Members App</h1></header>
+      <TeamForm  
+      values={formValues}
+      update={updateForm}
+      submit={submitForm}/>
 
-
-
-
-
-
-  return (
-    <div className="App">
+      {members.map(member => {
+        return (
+          <Member key={member.id} details={member} />
+        )
+      })}
      
     </div>
   );
